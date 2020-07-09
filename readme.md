@@ -57,13 +57,13 @@ friction：摩擦力。范围0-1(接近0，摩擦力越小，接近1摩擦力越
 示例代码：
 ```
 override func viewDidLoad() {
-super.viewDidLoad()
-view.addSubview(ballView)
+    super.viewDidLoad()
+    view.addSubview(ballView)
 
-//step3、 将每个特性关联到相应的视图上(addItem)
-gravityBehavior.addItem(ballView)
-//step4、 UIDynamicAnimator添加所有的特性
-dynamicAnimator.addBehavior(gravityBehavior)
+    //step3、 将每个特性关联到相应的视图上(addItem)
+    gravityBehavior.addItem(ballView)
+    //step4、 UIDynamicAnimator添加所有的特性
+    dynamicAnimator.addBehavior(gravityBehavior)
 }
 
 //step1、 创建一个UIDynamicAnimator用于为所有Dynamic Items提供动画效果的环境
@@ -71,8 +71,8 @@ lazy var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator(referenceView: s
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var gravityBehavior: UIGravityBehavior = {
-let gravityBehavior = UIGravityBehavior()
-return gravityBehavior
+    let gravityBehavior = UIGravityBehavior()
+    return gravityBehavior
 }()
 ```
 ##### 3.2、碰撞检测UICollisionBehavior
@@ -82,15 +82,15 @@ return gravityBehavior
 示例代码：
 ```
 override func viewDidLoad() {
-super.viewDidLoad()
-view.addSubview(ballView)
+    super.viewDidLoad()
+    view.addSubview(ballView)
 
-//step4、 UIDynamicAnimator添加所有的特性
-[gravityBehavior, collisionBehavior].forEach(dynamicAnimator.addBehavior)
+    //step4、 UIDynamicAnimator添加所有的特性
+    [gravityBehavior, collisionBehavior].forEach(dynamicAnimator.addBehavior)
 
-//step3、 将每个特性关联到相应的视图上(addItem)
-gravityBehavior.addItem(ballView)
-collisionBehavior.addItem(ballView)
+    //step3、 将每个特性关联到相应的视图上(addItem)
+    gravityBehavior.addItem(ballView)
+    collisionBehavior.addItem(ballView)
 }
 
 //step1、 创建一个UIDynamicAnimator用于为所有Dynamic Items提供动画效果的环境
@@ -98,16 +98,16 @@ lazy var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator(referenceView: s
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var collisionBehavior: UICollisionBehavior = {
-let collisionBehavior = UICollisionBehavior()
-collisionBehavior.translatesReferenceBoundsIntoBoundary = true
-collisionBehavior.collisionMode = .boundaries
-return collisionBehavior
+    let collisionBehavior = UICollisionBehavior()
+    collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+    collisionBehavior.collisionMode = .boundaries
+    return collisionBehavior
 }()
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var gravityBehavior: UIGravityBehavior = {
 let gravityBehavior = UIGravityBehavior()
-return gravityBehavior
+    return gravityBehavior
 }()
 ```
 
@@ -128,28 +128,28 @@ return gravityBehavior
 ```
 override func viewDidLoad() {
 super.viewDidLoad()
-view.addSubview(lineView)
-view.addSubview(ballView)
-lineView.frame = view.bounds
-//step4、 UIDynamicAnimator添加所有的特性
-dynamicAnimator.addBehavior(gravityBehavior)
-dynamicAnimator.addBehavior(attatchBehavior)
-//step3、 将每个特性关联到相应的视图上(addItem)
-gravityBehavior.addItem(ballView)
+    view.addSubview(lineView)
+    view.addSubview(ballView)
+    lineView.frame = view.bounds
+    //step4、 UIDynamicAnimator添加所有的特性
+    dynamicAnimator.addBehavior(gravityBehavior)
+    dynamicAnimator.addBehavior(attatchBehavior)
+    //step3、 将每个特性关联到相应的视图上(addItem)
+    gravityBehavior.addItem(ballView)
 }
 
 override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-guard let allTouches = event?.allTouches else { return }
-guard let touch = allTouches.first else { return }
-let point = touch.location(in: touch.view)
+    guard let allTouches = event?.allTouches else { return }
+    guard let touch = allTouches.first else { return }
+    let point = touch.location(in: touch.view)
 
-attatchBehavior.action = { [weak self] in
-guard let self = self else {
-return
-}
-self.lineView.endPoint = self.view.convert(CGPoint(x: 25, y: 25), from: self.ballView)
-self.lineView.startPoint = point
-}
+    attatchBehavior.action = { [weak self] in
+        guard let self = self else {
+            return
+        }
+        self.lineView.endPoint = self.view.convert(CGPoint(x: 25, y: 25), from: self.ballView)
+        self.lineView.startPoint = point
+    }
 }
 
 //step1、 创建一个UIDynamicAnimator用于为所有Dynamic Items提供动画效果的环境
@@ -157,25 +157,25 @@ lazy var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator(referenceView: s
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var attatchBehavior: UIAttachmentBehavior = {
-//step3、 将每个特性关联到相应的视图上(addItem) -- 这里在初始化的时候将对应的视图添加
-let attatchBehavior = UIAttachmentBehavior(item: ballView, attachedToAnchor: CGPoint(x: UIScreen.main.bounds.size.width / 2.0, y: UIScreen.main.bounds.size.height / 2.0))
-attatchBehavior.length = 180;
-//        attatchBehavior.damping = 1
-//        attatchBehavior.frequency = 0
-attatchBehavior.action = { [weak self] in
-guard let self = self else {
-return
-}
-self.lineView.endPoint = self.view.convert(CGPoint(x: 25, y: 25), from: self.ballView)
-self.lineView.startPoint = CGPoint(x: 50, y: 100)
-}
-return attatchBehavior
+    //step3、 将每个特性关联到相应的视图上(addItem) -- 这里在初始化的时候将对应的视图添加
+    let attatchBehavior = UIAttachmentBehavior(item: ballView, attachedToAnchor: CGPoint(x: UIScreen.main.bounds.size.width / 2.0, y: UIScreen.main.bounds.size.height / 2.0))
+    attatchBehavior.length = 180;
+    //        attatchBehavior.damping = 1
+    //        attatchBehavior.frequency = 0
+    attatchBehavior.action = { [weak self] in
+    guard let self = self else {
+    return
+    }
+    self.lineView.endPoint = self.view.convert(CGPoint(x: 25, y: 25), from: self.ballView)
+    self.lineView.startPoint = CGPoint(x: 50, y: 100)
+    }
+    return attatchBehavior
 }()
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var gravityBehavior: UIGravityBehavior = {
-let gravityBehavior = UIGravityBehavior()
-return gravityBehavior
+    let gravityBehavior = UIGravityBehavior()
+    return gravityBehavior
 }()
 ```
 
@@ -195,17 +195,17 @@ return gravityBehavior
 示例代码：
 ```
 override func viewDidLoad() {
-super.viewDidLoad()
-view.addSubview(ballView)
-//step4、 UIDynamicAnimator添加所有的特性
-dynamicAnimator.addBehavior(snapBehavior)
+    super.viewDidLoad()
+    view.addSubview(ballView)
+    //step4、 UIDynamicAnimator添加所有的特性
+    dynamicAnimator.addBehavior(snapBehavior)
 }
 
 override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-guard let allTouches = event?.allTouches else { return }
-guard let touch = allTouches.first else { return }
-let point = touch.location(in: touch.view)
-snapBehavior.snapPoint = point
+    guard let allTouches = event?.allTouches else { return }
+    guard let touch = allTouches.first else { return }
+    let point = touch.location(in: touch.view)
+    snapBehavior.snapPoint = point
 }
 
 //step1、 创建一个UIDynamicAnimator用于为所有Dynamic Items提供动画效果的环境
@@ -213,9 +213,9 @@ lazy var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator(referenceView: s
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var snapBehavior: UISnapBehavior = {
-//step3、 将每个特性关联到相应的视图上(addItem) -- 这里在初始化的时候将对应的视图添加
-let snapBehavior = UISnapBehavior(item: ballView, snapTo: ballView.center)
-return snapBehavior
+    //step3、 将每个特性关联到相应的视图上(addItem) -- 这里在初始化的时候将对应的视图添加
+    let snapBehavior = UISnapBehavior(item: ballView, snapTo: ballView.center)
+    return snapBehavior
 }()
 
 ```
@@ -231,22 +231,22 @@ return snapBehavior
 示例代码：
 ```
 override func viewDidLoad() {
-super.viewDidLoad()
-view.addSubview(ballView)
-//step4、 UIDynamicAnimator添加所有的特性
-[pushBehavior, collisionBehavior, pushBehavior].forEach(dynamicAnimator.addBehavior)
-//step3、 将每个特性关联到相应的视图上(addItem)
-collisionBehavior.addItem(ballView)
+    super.viewDidLoad()
+    view.addSubview(ballView)
+    //step4、 UIDynamicAnimator添加所有的特性
+    [pushBehavior, collisionBehavior, pushBehavior].forEach(dynamicAnimator.addBehavior)
+    //step3、 将每个特性关联到相应的视图上(addItem)
+    collisionBehavior.addItem(ballView)
 }
 
 //step1、 创建一个UIDynamicAnimator用于为所有Dynamic Items提供动画效果的环境
 lazy var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator(referenceView: self.view)
 
 lazy var collisionBehavior: UICollisionBehavior = {
-let collisionBehavior = UICollisionBehavior()
-collisionBehavior.translatesReferenceBoundsIntoBoundary = true
-collisionBehavior.collisionMode = .boundaries
-return collisionBehavior
+    let collisionBehavior = UICollisionBehavior()
+    collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+    collisionBehavior.collisionMode = .boundaries
+    return collisionBehavior
 }()
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
@@ -255,14 +255,14 @@ lazy var pushBehavior: UIPushBehavior = {
 let pushBehavior = UIPushBehavior(items: [ballView], mode: UIPushBehavior.Mode.continuous)
 //设置角度 和 力量大小
 pushBehavior.setAngle(CGFloat(Double.pi / 4), magnitude: 10)
-return pushBehavior
+    return pushBehavior
 }()
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var gravityBehavior: UIGravityBehavior = {
 //step3、 将每个特性关联到相应的视图上(addItem) -- 这里在初始化的时候将对应的视图添加
 let gravityBehavior = UIGravityBehavior(items: [ballView])
-return gravityBehavior
+    return gravityBehavior
 }()
 ```
 
@@ -293,16 +293,16 @@ return gravityBehavior
 示例代码：
 ```
 override func viewDidLoad() {
-super.viewDidLoad()
-view.addSubview(ballView)
+    super.viewDidLoad()
+    view.addSubview(ballView)
 
-dynamicAnimator.setValue(true, forKey: "debugEnabled")
-//step4、 UIDynamicAnimator添加所有的特性
-dynamicAnimator.addBehavior(gravifyFieldBehavior)
-dynamicAnimator.addBehavior(vortexFieldBehavior)
-//step3、 将每个特性关联到相应的视图上(addItem)
-gravifyFieldBehavior.addItem(ballView)
-vortexFieldBehavior.addItem(ballView)
+    dynamicAnimator.setValue(true, forKey: "debugEnabled")
+    //step4、 UIDynamicAnimator添加所有的特性
+    dynamicAnimator.addBehavior(gravifyFieldBehavior)
+    dynamicAnimator.addBehavior(vortexFieldBehavior)
+    //step3、 将每个特性关联到相应的视图上(addItem)
+    gravifyFieldBehavior.addItem(ballView)
+    vortexFieldBehavior.addItem(ballView)
 }
 
 //step1、 创建一个UIDynamicAnimator用于为所有Dynamic Items提供动画效果的环境
@@ -310,22 +310,22 @@ lazy var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator(referenceView: s
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var gravifyFieldBehavior: UIFieldBehavior = {
-let gravifyFieldBehavior = UIFieldBehavior.radialGravityField(position: view.center)
-gravifyFieldBehavior.region = UIRegion(size: view.bounds.size)
-gravifyFieldBehavior.position = view.center //region的中心点
-gravifyFieldBehavior.strength = 5  //这里的strength不宜过大，否则很容易重力大于漩涡的吸引力，而逃出漩涡，演示不成功
-gravifyFieldBehavior.falloff = 4.0 //falloff越大，作用区域越小
-gravifyFieldBehavior.minimumRadius = 50
-return gravifyFieldBehavior
+    let gravifyFieldBehavior = UIFieldBehavior.radialGravityField(position: view.center)
+    gravifyFieldBehavior.region = UIRegion(size: view.bounds.size)
+    gravifyFieldBehavior.position = view.center //region的中心点
+    gravifyFieldBehavior.strength = 5  //这里的strength不宜过大，否则很容易重力大于漩涡的吸引力，而逃出漩涡，演示不成功
+    gravifyFieldBehavior.falloff = 4.0 //falloff越大，作用区域越小
+    gravifyFieldBehavior.minimumRadius = 50
+    return gravifyFieldBehavior
 }()
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var vortexFieldBehavior: UIFieldBehavior = {
-let vortexFieldBehavior = UIFieldBehavior.vortexField()
-vortexFieldBehavior.region = UIRegion(radius: 200) //漩涡的区域不能太长，否则小球跑出屏幕外
-vortexFieldBehavior.strength = 0.005
-vortexFieldBehavior.position = view.center //region的中心点
-return vortexFieldBehavior
+    let vortexFieldBehavior = UIFieldBehavior.vortexField()
+    vortexFieldBehavior.region = UIRegion(radius: 200) //漩涡的区域不能太长，否则小球跑出屏幕外
+    vortexFieldBehavior.strength = 0.005
+    vortexFieldBehavior.position = view.center //region的中心点
+    return vortexFieldBehavior
 }()
 ```
 
@@ -336,14 +336,14 @@ return vortexFieldBehavior
 示例代码：
 ```
 override func viewDidLoad() {
-super.viewDidLoad()
-view.addSubview(ballView)
+    super.viewDidLoad()
+    view.addSubview(ballView)
 
-dynamicAnimator.setValue(true, forKey: "debugEnabled")
-//step4、 UIDynamicAnimator添加所有的特性
-dynamicAnimator.addBehavior(gravifyFieldBehavior)
-//step3、 将每个特性关联到相应的视图上(addItem)
-gravifyFieldBehavior.addItem(ballView)
+    dynamicAnimator.setValue(true, forKey: "debugEnabled")
+    //step4、 UIDynamicAnimator添加所有的特性
+    dynamicAnimator.addBehavior(gravifyFieldBehavior)
+    //step3、 将每个特性关联到相应的视图上(addItem)
+    gravifyFieldBehavior.addItem(ballView)
 }
 
 //step1、 创建一个UIDynamicAnimator用于为所有Dynamic Items提供动画效果的环境
@@ -351,21 +351,21 @@ lazy var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator(referenceView: s
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var gravifyFieldBehavior: UIFieldBehavior = {
-let gravifyFieldBehavior = UIFieldBehavior.springField()
-gravifyFieldBehavior.position = view.center //region的中心点
-gravifyFieldBehavior.region = UIRegion(size: view.bounds.size)
-gravifyFieldBehavior.strength = 1.5
-gravifyFieldBehavior.falloff = 1.0
-gravifyFieldBehavior.minimumRadius = 150
-return gravifyFieldBehavior
+    let gravifyFieldBehavior = UIFieldBehavior.springField()
+    gravifyFieldBehavior.position = view.center //region的中心点
+    gravifyFieldBehavior.region = UIRegion(size: view.bounds.size)
+    gravifyFieldBehavior.strength = 1.5
+    gravifyFieldBehavior.falloff = 1.0
+    gravifyFieldBehavior.minimumRadius = 150
+    return gravifyFieldBehavior
 }()
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var dynamicItemBehavior: UIDynamicItemBehavior = {
-let dynamicItemBehavior = UIDynamicItemBehavior()
-dynamicItemBehavior.addItem(ballView)
-dynamicItemBehavior.density = 0.5
-return dynamicItemBehavior
+    let dynamicItemBehavior = UIDynamicItemBehavior()
+    dynamicItemBehavior.addItem(ballView)
+    dynamicItemBehavior.density = 0.5
+    return dynamicItemBehavior
 }()
 ```
 
@@ -376,13 +376,13 @@ return dynamicItemBehavior
 ```
 override func viewDidLoad() {
 super.viewDidLoad()
-view.addSubview(ballView)
+    view.addSubview(ballView)
 
-dynamicAnimator.setValue(true, forKey: "debugEnabled")
-//step4、 UIDynamicAnimator添加所有的特性
-dynamicAnimator.addBehavior(gravifyFieldBehavior)
-//step3、 将每个特性关联到相应的视图上(addItem)
-gravifyFieldBehavior.addItem(ballView)
+    dynamicAnimator.setValue(true, forKey: "debugEnabled")
+    //step4、 UIDynamicAnimator添加所有的特性
+    dynamicAnimator.addBehavior(gravifyFieldBehavior)
+    //step3、 将每个特性关联到相应的视图上(addItem)
+    gravifyFieldBehavior.addItem(ballView)
 }
 
 //step1、 创建一个UIDynamicAnimator用于为所有Dynamic Items提供动画效果的环境
@@ -391,21 +391,21 @@ lazy var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator(referenceView: s
 //step2、 初始化所有需要的行为(上述中的物理特性)
 //模拟水平重力运行
 lazy var gravifyFieldBehavior: UIFieldBehavior = {
-let gravifyFieldBehavior = UIFieldBehavior.linearGravityField(direction: CGVector(dx: 0.5, dy: 0))
-gravifyFieldBehavior.position = view.center //region的中心点
-gravifyFieldBehavior.region = UIRegion(size: view.bounds.size)
-gravifyFieldBehavior.strength = 1.5
-gravifyFieldBehavior.falloff = 1.0
-gravifyFieldBehavior.minimumRadius = 150
-return gravifyFieldBehavior
+    let gravifyFieldBehavior = UIFieldBehavior.linearGravityField(direction: CGVector(dx: 0.5, dy: 0))
+    gravifyFieldBehavior.position = view.center //region的中心点
+    gravifyFieldBehavior.region = UIRegion(size: view.bounds.size)
+    gravifyFieldBehavior.strength = 1.5
+    gravifyFieldBehavior.falloff = 1.0
+    gravifyFieldBehavior.minimumRadius = 150
+    return gravifyFieldBehavior
 }()
 
 //step2、 初始化所有需要的行为(上述中的物理特性)
 lazy var dynamicItemBehavior: UIDynamicItemBehavior = {
-let dynamicItemBehavior = UIDynamicItemBehavior()
-dynamicItemBehavior.addItem(ballView)
-dynamicItemBehavior.density = 0.5
-return dynamicItemBehavior
+    let dynamicItemBehavior = UIDynamicItemBehavior()
+    dynamicItemBehavior.addItem(ballView)
+    dynamicItemBehavior.density = 0.5
+    return dynamicItemBehavior
 }()
 
 ```
