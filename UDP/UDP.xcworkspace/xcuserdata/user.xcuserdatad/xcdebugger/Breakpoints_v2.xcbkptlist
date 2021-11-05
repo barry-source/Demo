@@ -23,32 +23,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3070D416-FA51-4763-96D3-DC13ABD320B0"
+            uuid = "8CA941C8-6AB7-4FE1-8CC2-17D126F486F7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UDP/Server.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "-bindPort:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B4839165-70C9-4091-84C1-9FF01A98A741"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UDP/Server.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "-udpSocket:didReceiveData:fromAddress:withFilterContext:"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "-udpSocket:didConnectToAddress:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

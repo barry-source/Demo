@@ -43,3 +43,11 @@
 }
 
 @end
+
+@implementation NSString (Util)
+
+- (NSString *)nilFilterd {
+    return self == nil ? @"" : self;
+}
+
+@end

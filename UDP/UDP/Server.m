@@ -8,6 +8,7 @@
 #import "Server.h"
 #import "GCDAsyncSocket.h" // for TCP
 #import "GCDAsyncUdpSocket.h" // for UDP
+#import "Util.h"
 
 @interface Server() <GCDAsyncUdpSocketDelegate>
 
@@ -99,6 +100,29 @@
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(id)filterContext {
     NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     self.rev(msg);
+    NSDictionary *para = @{
+        @"isIPv4Enabled": @(self.asyncUdpSocket.isIPv4Enabled),
+        @"isIPv6Enabled": @(self.asyncUdpSocket.isIPv6Enabled),
+        @"isIPv4Preferred": @(self.asyncUdpSocket.isIPv4Preferred),
+        @"isIPv6Preferred": @(self.asyncUdpSocket.isIPv6Preferred),
+        @"maxSendBufferSize": @(self.asyncUdpSocket.maxSendBufferSize),
+        @"maxReceiveIPv4BufferSize": @(self.asyncUdpSocket.maxReceiveIPv4BufferSize),
+        @"maxReceiveIPv6BufferSize": @(self.asyncUdpSocket.maxReceiveIPv6BufferSize),
+        @"userData": self.asyncUdpSocket.userData == nil ? @"" : self.asyncUdpSocket.userData,
+        @"localAddress": [GCDAsyncUdpSocket hostFromAddress:self.asyncUdpSocket.localAddress],
+        @"localHost": [self.asyncUdpSocket.localHost nilFilterd],
+        @"localPort": @(self.asyncUdpSocket.localPort),
+        @"localHost_IPv4": [self.asyncUdpSocket.localHost_IPv4 nilFilterd],
+        @"localPort_IPv4": @(self.asyncUdpSocket.localPort_IPv4),
+        @"localHost_IPv6": [self.asyncUdpSocket.localHost_IPv6 nilFilterd],
+        @"localPort_IPv6": @(self.asyncUdpSocket.localPort_IPv6),
+        @"connectedAddress": self.asyncUdpSocket.connectedAddress != nil ? [GCDAsyncUdpSocket hostFromAddress:self.asyncUdpSocket.connectedAddress] : @"",
+        @"connectedHost": self.asyncUdpSocket.connectedHost == nil ? @"" : self.asyncUdpSocket.connectedHost,
+        @"connectedPort": @(self.asyncUdpSocket.connectedPort),
+        @"isConnected": @(self.asyncUdpSocket.isConnected),
+    };
+    NSLog(@"接收地址：\n%@", [GCDAsyncUdpSocket hostFromAddress:address]);
+    NSLog(@"当前socket信息：\n%@", para);
 }
 
 /**
@@ -108,24 +132,5 @@
     
 }
 
-
-////已接收到消息
-//- (BOOL)onUdpSocket:(AsyncUdpSocket *)sock didReceiveData:(NSData *)data withTag:(long)tag fromHost:(NSString *)host port:(UInt16)port{
-//    if(data是找server的){
-//        　　　　　　//依据client给的IP，利用TCP或UDP 相互连接上就能够開始通讯了
-//    }　　return YES;
-//}
-////没有接受到消息
-//-(void)onUdpSocket:(AsyncUdpSocket *)sock didNotReceiveDataWithTag:(long)tag dueToError:(NSError *)error{
-//}
-////没有发送出消息
-//-(void)onUdpSocket:(AsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error{
-//}
-////已发送出消息
-//-(void)onUdpSocket:(AsyncUdpSocket *)sock didSendDataWithTag:(long)tag{
-//}
-////断开连接
-//-(void)onUdpSocketDidClose:(AsyncUdpSocket *)sock{
-//}
-
 @end
+
