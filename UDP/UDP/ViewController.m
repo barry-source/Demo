@@ -14,7 +14,13 @@
 
 
 // mark: 出现无法传输数据的情况，删除app，重新安装
+/*
+ UDP广播机制的应用场景：
+ 若干个client。在局域网内(不知道IP的情况下) 须要在非常多设备里需找特有的设备，比方server，抑或是某个打印机，传真机等。
+ 如果我如今准备将server装在永不断电的iPad上。
+ 若干个clientiPhone 一激活。就要来向全部设备广播，谁是server。是server的话，请把IP地址告诉我。
 
+ */
 @interface ViewController ()
 
 @property (nonatomic, strong) Server *server;
