@@ -1,0 +1,12 @@
+
+"tab_1"                   = "home";
+"tab_2"                   = "activity";
+"tab_3"                   = "mine";
+"key_1"                   = "content1";
+"key_2"                   = "content2";
+"key_3"                   = "content3";
+
+// 重复项
+"key_4"                   = "home";
+"key_5"                   = "content3";
+"key_6"                   = "content3";
