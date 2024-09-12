@@ -1,0 +1,29 @@
+PODS:
+  - CocoaAsyncSocket (7.6.5)
+  - SnapKit (5.7.1)
+  - SwiftyJSON (5.0.2)
+  - Toast-Swift (5.0.1)
+
+DEPENDENCIES:
+  - CocoaAsyncSocket (~> 7.6.5)
+  - SnapKit
+  - SwiftyJSON (~> 5.0.0)
+  - Toast-Swift (~> 5.0.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - CocoaAsyncSocket
+    - SwiftyJSON
+    - Toast-Swift
+  trunk:
+    - SnapKit
+
+SPEC CHECKSUMS:
+  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+
+PODFILE CHECKSUM: 26d7a49d5c9d27390c8dd29644e010710a4a6187
+
+COCOAPODS: 1.14.2
